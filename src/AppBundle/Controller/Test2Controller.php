@@ -64,12 +64,9 @@ class Test2Controller extends Controller
                 'test2',
                 $user->getRoles()
             );
-            $this->get('security.token_storage')->setToken($token);
 
-            $this->get('event_dispatcher')->dispatch(
-                SecurityEvents::INTERACTIVE_LOGIN,
-                new InteractiveLoginEvent($request, $token)
-            );
+            $this->get('security.authentication.manager')->authenticate($token);
+            $this->get('security.token_storage')->setToken($token);
 
             //return $this->redirectToRoute('app_test2_content');
         }
