@@ -23,3 +23,14 @@ security:
             form_login:
                 login_path: app_test1_login
                 check_path: app_test1_login
+                default_target_path: app_test1_content
+
+        test2:
+            pattern: ^/test2/(obsah)/
+            anonymous: false
+            context: test
+            provider: users
+            form_login:
+                login_path: app_test2_login
+                check_path: app_test2_login
+                default_target_path: app_test2_content

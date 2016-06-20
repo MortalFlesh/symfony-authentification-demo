@@ -10,14 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
- * @Route("/test1")
+ * @Route("/test2")
  */
-class Test1Controller extends Controller
+class Test2Controller extends Controller
 {
     /**
-     * @Route("/", name="app_test1_index")
+     * @Route("/", name="app_test2_index")
      * @Template()
      *
      * @return array
@@ -25,12 +27,12 @@ class Test1Controller extends Controller
     public function indexAction()
     {
         return [
-            'title' => 'Test1',
+            'title' => 'Test2',
         ];
     }
 
     /**
-     * @Route("/vstup/", name="app_test1_login")
+     * @Route("/vstup/", name="app_test2_login")
      * @Template()
      *
      * @param Request $request
@@ -59,24 +61,27 @@ class Test1Controller extends Controller
             $token = new UsernamePasswordToken(
                 $user->getUsername(),
                 $user->getPassword(),
-                'test1',
+                'test2',
                 $user->getRoles()
             );
             $this->get('security.token_storage')->setToken($token);
 
-            //$this->get('event_dispatcher')->dis
+            $this->get('event_dispatcher')->dispatch(
+                SecurityEvents::INTERACTIVE_LOGIN,
+                new InteractiveLoginEvent($request, $token)
+            );
 
-            //return $this->redirectToRoute('app_test1_content');
+            //return $this->redirectToRoute('app_test2_content');
         }
 
         return [
-            'title' => 'Test1',
+            'title' => 'Test2',
             'form' => $form->createView(),
         ];
     }
 
     /**
-     * @Route("/obsah/", name="app_test1_content")
+     * @Route("/obsah/", name="app_test2_content")
      * @Template()
      *
      * @return array
@@ -84,7 +89,7 @@ class Test1Controller extends Controller
     public function contentAction()
     {
         return [
-            'title' => 'Test1',
+            'title' => 'Test2',
         ];
     }
 }
