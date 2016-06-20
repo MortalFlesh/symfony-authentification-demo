@@ -1,1 +1,4 @@
-# symfony-authentification-demo
+Symfony Authentification Demo
+=============================
+
+- Demo for showing basic authentification
