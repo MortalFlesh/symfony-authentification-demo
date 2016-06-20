@@ -1,0 +1,9 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>
+        Vítejte v {{ title }}
+    </h1>
+
+    <a href="{{ path('app_test1_content') }}">Přejít k obsahu</a>
+{% endblock %}
